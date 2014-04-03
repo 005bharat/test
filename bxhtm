@@ -1,0 +1,51 @@
+<div class="Dcats">
+                <div class="slider5">
+                    <div class="slide act"><img class="dimg" src="media/debate/d11.png" data-src="media/debate/d1.png" /></div>
+                    <div class="slide act"><img class="dimg" src="media/debate/d22.png" data-src="media/debate/d2.png" /></div>
+                    <div class="slide act sel"><img class="dimg" src="media/debate/d33.png" data-src="media/debate/d3.png" /></div>
+                    <div class="slide act"><img class="dimg" src="media/debate/d44.png" data-src="media/debate/d4.png" /></div>
+                    <div class="slide act"><img class="dimg" src="media/debate/d55.png" data-src="media/debate/d5.png" /></div>
+                </div>
+                <a id="currSlide">link</a>
+            </div>
+            
+            
+                <script type="text/javascript">
+        $(document).ready(function () {
+            var slider =$('.slider5').bxSlider({
+                slideWidth: 196,
+                minSlides: 1,
+                maxSlides: 5,
+                moveSlides: 1,
+                slideMargin: 0,
+                onSlideAfter: function () {
+                    slider.gotoSlide();
+                },
+                onSliderLoad: function () {
+                    $sel = $('.sel', ".slider5");
+                    $sel.append('<img class="d1" src="' + $sel.find('img').attr("data-src") + '" />');
+                    TweenMax.to($sel.find('.d1'), .4, { width: '166', alpha: 1 });
+                    TweenMax.to($sel.find('.dimg'), .4, { alpha: 0 });
+                }
+            });
+
+            $("#currSlide").click(function () {
+                //slider = $('.slider5').bxSlider();
+                console.log(slider.getCurrentSlide());
+            });
+
+            
+            var dimgwidth;
+            $('.act:not(.sel)').hover(function () {
+                $(this).append('<img class="d1" src="' + $('img',this).attr("data-src") + '" />');
+                dimgwidth = $('.dimg', this).width();
+                TweenMax.to($('.d1', this), .4, { width: '166', alpha: 1 });
+                TweenMax.to($('.dimg', this), .4, { alpha: 0 });
+            },
+            function () {
+                $(this).find(".d1").remove();
+                TweenMax.to($('.dimg', this), .4, { width: dimgwidth, alpha: 1 });
+            });
+            
+        });
+    </script>
